@@ -10,14 +10,20 @@ const LayoutRoot = styled('div')(({ theme }) => ({
   width: '100%',
 }));
 
+const LayoutContent = styled('div')(({ theme }) => ({
+  height: '100%',
+  overflow: 'auto',
+  width: '100%',
+}));
+
 export const AppLayout = () => {
   return (
     <div>
       <LayoutRoot>
         <AppNavbar />
-        <Container>
+        <LayoutContent>
           <Outlet />
-        </Container>
+        </LayoutContent>
       </LayoutRoot>
     </div>
   );

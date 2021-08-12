@@ -1,26 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { getUsers, postUsers, UserData } from 'model/UsersData';
-import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { UsersTable } from 'components/Users/UsersTable';
+import { Box, Container, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  // table: {
-  //   minWidth: 650,
-  // },
   container: {
-    maxHeight: 440,
-    width: 500,
-  },
-  cell: {
-    width: 50,
+    padding: '0px 0px',
   },
 });
 
@@ -38,46 +24,48 @@ export const UsersMetricsPage = () => {
 
   if (!parseInt(projectId)) navigate('404');
 
-  const [users, setUsers] = useState<UserData[]>([]);
-  React.useEffect(() => {
-    const doGetUsers = async () => {
-      const foundUsers = await getUsers(parseInt(projectId));
-      setUsers(foundUsers);
-    };
-    doGetUsers();
-  }, []);
-
+  // return (
+  //   <Box p={{ xl: '20px 90px', lg: '20px 90px' }}>
+  //     <Container maxWidth={'xl'} className={classes.container}>
+  //       <Grid container spacing={3}>
+  //         <Grid item xl={4} lg={4} md={12} xs={12}>
+  //           <UsersTable projectId={parseInt(projectId)} />
+  //         </Grid>
+  //         <Grid item xl={8} lg={8} md={12} xs={12}>
+  //           <UsersTable projectId={parseInt(projectId)} />
+  //         </Grid>
+  //         <Grid item xl={4} lg={4} md={12} xs={12}>
+  //           <UsersTable projectId={parseInt(projectId)} />
+  //         </Grid>
+  //       </Grid>
+  //     </Container>
+  //   </Box>
+  // );
   return (
-    <div>
-      <Paper>
-        <h1>Users {projectId}</h1>
-        <TableContainer component={Paper} className={classes.container}>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell className={classes.cell}>UserId</TableCell>
-                <TableCell align="left">Date Registration</TableCell>
-                <TableCell align="left">Date Last Activity</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((row) => (
-                <TableRow key={row.userId}>
-                  <TableCell className={classes.cell} align="left">
-                    {row.userId}
-                  </TableCell>
-                  <TableCell align="left">
-                    {formatDate(row.dateRegistration)}
-                  </TableCell>
-                  <TableCell align="left">
-                    {formatDate(row.dateLastActivity)}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </div>
+    <Box p={{ xl: '20px 90px', lg: '20px 90px' }}>
+      <Container maxWidth={'xl'} className={classes.container}>
+        <Grid container spacing={3}>
+          <Grid container item spacing={3} xl={4} lg={4} md={12} xs={12}>
+            <Grid item xl={12} lg={12} md={12} xs={12}>
+              <UsersTable projectId={parseInt(projectId)} />
+            </Grid>
+          </Grid>
+          <Grid container item spacing={3} xl={8} lg={8} md={12} xs={12}>
+            <Grid item xl={12} lg={12} md={12} xs={12}>
+              <div
+                style={{ backgroundColor: 'pink', width: 1000, height: 400 }}
+              >
+                Users Lifetime
+              </div>
+            </Grid>
+            <Grid item xl={12} lg={12} md={12} xs={12}>
+              <div style={{ backgroundColor: 'blue', width: 600, height: 200 }}>
+                Rolling retention
+              </div>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
