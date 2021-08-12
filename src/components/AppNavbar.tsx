@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from 'theme/icons/SearchIcon';
 import ExitIcon from 'theme/icons/ExitIcon';
 import ABTestLogo from 'components/ABTestLogo';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   exitIcon: {
     marginLeft: 'auto',
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 export const AppNavbar = () => {
@@ -27,7 +31,9 @@ export const AppNavbar = () => {
     <AppBar position="static">
       <Toolbar>
         <div className={classes.logo}>
-          <ABTestLogo />
+          <Link className={classes.link} to={`/`}>
+            <ABTestLogo />
+          </Link>
         </div>
         <Input
           className={classes.input}
