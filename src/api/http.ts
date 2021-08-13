@@ -4,6 +4,7 @@ export interface HttpRequest<REQB> {
   path: string;
   method?: string;
   body?: REQB;
+  nobody?: boolean;
 }
 export interface HttpResponse<RESB> {
   ok: boolean;
@@ -13,6 +14,7 @@ export interface HttpResponse<RESB> {
 export const http = async <RESB, REQB = undefined>(
   config: HttpRequest<REQB>,
 ): Promise<HttpResponse<RESB>> => {
+  console.log('BODY: ', JSON.stringify(config.body));
   const request = new Request(`${webAPIUrl}${config.path}`, {
     method: config.method || 'get',
     headers: {
@@ -21,6 +23,9 @@ export const http = async <RESB, REQB = undefined>(
     body: config.body ? JSON.stringify(config.body) : undefined,
   });
   const response = await fetch(request);
+  if (config.nobody) {
+    return { ok: response.ok };
+  }
   if (response.ok) {
     const body = await response.json();
     return { ok: response.ok, body };

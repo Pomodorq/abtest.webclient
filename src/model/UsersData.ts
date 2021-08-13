@@ -16,7 +16,8 @@ export interface UserDataServer {
 }
 
 export interface UserData {
-  id: number;
+  $state: 'exist' | 'new';
+  id?: number | null;
   userId: number;
   projectId: number;
   dateRegistration: Date;
@@ -28,6 +29,7 @@ export const mapUserFromServer = (user: UserDataServer): UserData => ({
   ...user,
   dateRegistration: new Date(user.dateRegistration),
   dateLastActivity: new Date(user.dateLastActivity),
+  $state: 'exist',
 });
 
 export const getUsers = async (projectId: number): Promise<UserData[]> => {
@@ -76,6 +78,16 @@ export const postUsers = async (
     path: `/projects/${projectId}/users/many`,
     method: 'post',
     body: users,
+    nobody: true,
+  });
+  return result.ok;
+};
+
+export const deleteUsers = async (projectId: number): Promise<boolean> => {
+  const result = await http({
+    path: `/projects/${projectId}/users`,
+    method: 'delete',
+    nobody: true,
   });
   return result.ok;
 };

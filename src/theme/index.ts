@@ -23,6 +23,11 @@ const theme = createTheme({
       opacity: 0.4,
     },
   },
+  props: {
+    MuiInput: {
+      disableUnderline: true,
+    },
+  },
   overrides: {
     // Style sheet name ⚛️
     //   MuiButton: {
@@ -37,6 +42,20 @@ const theme = createTheme({
     //     boxShadow: 'none',
     //   },
     // },
+    MuiButton: {
+      root: {
+        backgroundColor: '#4A9DFF',
+        borderRadius: '10px',
+      },
+      text: {
+        padding: '8px 27px',
+        color: '#FFFFFF',
+        fontWeight: 400,
+        fontSize: '14px',
+        fontFamily: 'Ubuntu, Roboto',
+        textTransform: 'none',
+      },
+    },
     MuiTableRow: {
       root: {
         borderBottom: '0.5px solid rgba(93, 110, 151, 0.4)',
@@ -75,6 +94,24 @@ const theme = createTheme({
     MuiTable: {
       stickyHeader: {
         borderRadius: '10px',
+      },
+    },
+    MuiInput: {
+      root: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: '20px',
+        padding: '0px 12px',
+      },
+    },
+    MuiInputLabel: {
+      root: {
+        fontFamily: 'Ubuntu',
+        fontSize: '14px',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        lineHeight: '16px',
+        letterSpacing: '0em',
+        color: '#5D6E97',
       },
     },
   },
