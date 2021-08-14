@@ -104,9 +104,11 @@ export const UsersTable = ({ projectId }: Props) => {
             </TableRow>
           </TableHead>
           {loading ? (
-            <Container>
-              <Typography>Loading...</Typography>
-            </Container>
+            <TableBody>
+              <TableRow>
+                <Typography>Loading...</Typography>
+              </TableRow>
+            </TableBody>
           ) : (
             <TableBody>
               {users.map((row) => (

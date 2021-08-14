@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';
 import { AppNavbar } from 'components/AppNavbar';
-import { Container } from '@material-ui/core';
 
 const LayoutRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,

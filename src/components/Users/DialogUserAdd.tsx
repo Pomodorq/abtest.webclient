@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {
   Input,
@@ -16,7 +15,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-  validate,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { UserData } from 'model/UsersData';
@@ -143,6 +141,7 @@ export default function DialogUserAdd({
       setDateRegistrationValidationMsg('Date Registration is required');
       return false;
     }
+    /* eslint-disable no-self-compare */
     if (dateRegistration.getTime() !== dateRegistration.getTime()) {
       setDateRegistrationValidationMsg('Date Registration is invalid');
       return false;
@@ -158,6 +157,7 @@ export default function DialogUserAdd({
       setDateLastActivityValidationMsg('Date Last Activity is required');
       return false;
     }
+    /* eslint-disable no-self-compare */
     if (dateLastActivity.getTime() !== dateLastActivity.getTime()) {
       setDateLastActivityValidationMsg('Date Last Activity is invalid');
       return false;
