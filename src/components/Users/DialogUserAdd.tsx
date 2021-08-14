@@ -88,13 +88,34 @@ export default function DialogUserAdd({
     const id = event.target.value;
     setUserId(id);
   };
-  const handleDateRegistrationChange = (event: any) => {
-    let date = event;
-    setDateRegistration(date);
+
+  const makeDate = (value: string) => {
+    let a = value.split('.');
+    let day = a[0];
+    let month = a[1];
+    let year = a[2];
+    return new Date(`${year}-${month}-${day}T00:00:00-00:00`);
   };
-  const handleDateLastActivityChange = (event: any) => {
-    let date = event;
-    setDateLastActivity(date);
+
+  const handleDateRegistrationChange = (
+    event: any,
+    value: string | null | undefined,
+  ) => {
+    if (!value) {
+      setDateRegistration(null);
+      return;
+    }
+    setDateRegistration(makeDate(value));
+  };
+  const handleDateLastActivityChange = (
+    event: any,
+    value: string | null | undefined,
+  ) => {
+    if (!value) {
+      setDateLastActivity(null);
+      return;
+    }
+    setDateLastActivity(makeDate(value));
   };
 
   const validateUserId = () => {
@@ -166,7 +187,6 @@ export default function DialogUserAdd({
       dateLastActivity: dateLastActivity!,
       dateRegistration: dateRegistration!,
     };
-    console.log('new user: ', newUser);
 
     handleSave(newUser);
     setDateLastActivity(null);
