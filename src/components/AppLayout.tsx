@@ -10,7 +10,7 @@ const LayoutRoot = styled('div')(({ theme }) => ({
 }));
 
 const LayoutContent = styled('div')(({ theme }) => ({
-  height: '100%',
+  height: '95%',
   overflow: 'auto',
   width: '100%',
 }));

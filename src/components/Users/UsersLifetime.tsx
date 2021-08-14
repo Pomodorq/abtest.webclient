@@ -16,8 +16,11 @@ const useStyles = makeStyles({
   caption: {
     marginBottom: 10,
   },
-  container: {
+  paperContainer: {
     height: 500,
+  },
+  container: {
+    height: 400,
     minWidth: 500,
   },
   toolbar: {
@@ -45,7 +48,7 @@ export const UsersLifetime = ({ projectId }: Props) => {
   };
 
   return (
-    <Paper elevation={0}>
+    <Paper elevation={0} className={classes.paperContainer}>
       <Typography variant="h2" className={classes.caption}>
         Lifetimes
       </Typography>

@@ -27,8 +27,8 @@ export interface UserData {
 
 export const mapUserFromServer = (user: UserDataServer): UserData => ({
   ...user,
-  dateRegistration: new Date(user.dateRegistration),
-  dateLastActivity: new Date(user.dateLastActivity),
+  dateRegistration: new Date(user.dateRegistration + '-00:00'),
+  dateLastActivity: new Date(user.dateLastActivity + '-00:00'),
   $state: 'exist',
 });
 
@@ -42,17 +42,6 @@ export const getUsers = async (projectId: number): Promise<UserData[]> => {
     return [];
   }
 };
-
-// export const getUser = async (userId: number): Promise<UserData | null> => {
-//   const result = await http<UserDataServer>({
-//     path: `/users/${userId}`,
-//   });
-//   if (result.ok && result.body) {
-//     return mapUserFromServer(result.body);
-//   } else {
-//     return null;
-//   }
-// };
 
 export const postUser = async (
   user: UserData,

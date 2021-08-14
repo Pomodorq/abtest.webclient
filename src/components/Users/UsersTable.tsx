@@ -14,13 +14,16 @@ import {
   postUsers,
 } from '../../model/UsersData';
 import { useState } from 'react';
-import { Typography, Button, Toolbar, Container } from '@material-ui/core';
+import { Typography, Button, Toolbar, Box } from '@material-ui/core';
 import DialogUserAdd from 'components/Users/DialogUserAdd';
 
 const useStyles = makeStyles({
-  container: {
+  paperContainer: {
     height: 500,
-    minWidth: 500,
+  },
+  container: {
+    height: 400,
+    minWidth: 350,
   },
   caption: {
     marginBottom: 10,
@@ -34,6 +37,16 @@ const useStyles = makeStyles({
   },
   btnLeft: {
     marginRight: 'auto',
+  },
+  newRow: {
+    backgroundColor: 'rgba(74, 157, 255, 0.08)',
+  },
+  info: {
+    color: 'rgba(93, 109, 151, 0.75)',
+  },
+  usersCaption: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 });
 
@@ -56,6 +69,7 @@ export const UsersTable = ({ projectId }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [isDialogUserAddOpen, setIsDialogUserAddOpen] =
     useState<boolean>(false);
+  const [unsaved, setUnsaved] = useState<boolean>(false);
 
   React.useEffect(() => {
     const doGetUsers = async () => {
@@ -86,14 +100,20 @@ export const UsersTable = ({ projectId }: Props) => {
     );
     const foundUsers = await getUsers(projectId);
     setUsers(foundUsers);
+    setUnsaved(false);
     setLoading(false);
   };
 
   return (
-    <Paper elevation={0}>
-      <Typography variant="h2" className={classes.caption}>
-        Users
-      </Typography>
+    <Paper elevation={0} className={classes.paperContainer}>
+      <Box className={classes.usersCaption}>
+        <Typography variant="h2" className={classes.caption}>
+          Users
+        </Typography>
+        <Typography className={classes.info}>
+          {unsaved ? '*There are unsaved data' : null}
+        </Typography>
+      </Box>
       <TableContainer component={Paper} className={classes.container}>
         <Table size="small" stickyHeader>
           <TableHead>
@@ -113,11 +133,28 @@ export const UsersTable = ({ projectId }: Props) => {
             <TableBody>
               {users.map((row) => (
                 <TableRow key={row.userId}>
-                  <TableCell align="left">{row.userId}</TableCell>
-                  <TableCell align="left">
+                  <TableCell
+                    align="left"
+                    className={
+                      row.$state === 'new' ? classes.newRow : undefined
+                    }
+                  >
+                    {row.userId}
+                  </TableCell>
+                  <TableCell
+                    className={
+                      row.$state === 'new' ? classes.newRow : undefined
+                    }
+                    align="left"
+                  >
                     {formatDate(row.dateRegistration)}
                   </TableCell>
-                  <TableCell align="left">
+                  <TableCell
+                    className={
+                      row.$state === 'new' ? classes.newRow : undefined
+                    }
+                    align="left"
+                  >
                     {formatDate(row.dateLastActivity)}
                   </TableCell>
                 </TableRow>
@@ -150,6 +187,7 @@ export const UsersTable = ({ projectId }: Props) => {
         handleClose={() => setIsDialogUserAddOpen(false)}
         handleSave={(newUser) => {
           setUsers([...users, newUser]);
+          setUnsaved(true);
         }}
         projectId={projectId}
         users={users}

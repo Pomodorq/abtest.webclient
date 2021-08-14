@@ -22,7 +22,6 @@ import { UserData } from 'model/UsersData';
 const InputSeparate = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  //marginBottom: '20px',
 }));
 
 const useStyles = makeStyles({

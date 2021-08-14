@@ -12,6 +12,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Ubuntu, Roboto',
+    fontSize: 14,
     h2: {
       color: '#3C5AA8',
       fontWeight: 400,
