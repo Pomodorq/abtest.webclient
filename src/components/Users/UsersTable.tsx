@@ -39,9 +39,9 @@ const useStyles = makeStyles({
 
 export const formatDate = (date: Date | null | undefined) => {
   if (!date) return '';
-  let day = date.getDate().toString().padStart(2, '0');
-  let month = date.getMonth().toString().padStart(2, '0');
-  let year = date.getFullYear();
+  let day = date.getUTCDate().toString().padStart(2, '0');
+  let month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+  let year = date.getUTCFullYear();
   return `${day}.${month}.${year}`;
 };
 
