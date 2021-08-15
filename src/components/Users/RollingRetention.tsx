@@ -30,6 +30,7 @@ const useStyles = makeStyles({
     padding: 0,
   },
   labelCenter: {
+    maxWidth: 190,
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center',
@@ -120,7 +121,7 @@ export const RollingRetention = ({ projectId }: Props) => {
               className={classes.labelCenter}
               htmlFor="DateRegistration"
             >
-              Start date (day 0):
+              Start date (minimal registration date by default):
             </InputLabel>
             <KeyboardDatePicker
               disableToolbar

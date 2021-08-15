@@ -11,6 +11,9 @@ import {
   Button,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { add } from 'store/usersSlice';
+import { useAppDispatch } from 'store/hook';
+import { ProfilerMsg } from 'model/ProfilerMsg';
 
 const useStyles = makeStyles({
   caption: {
@@ -39,10 +42,16 @@ export const UsersLifetime = ({ projectId }: Props) => {
     [],
   );
   const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   const handleClickCalculate = async () => {
     setLoading(true);
-    const foundLifetimeCounts = await getLifetimeCountsByIntervals(projectId);
+    const foundLifetimeCounts = await getLifetimeCountsByIntervals(
+      projectId,
+      (x) => {
+        dispatch(add(x));
+      },
+    );
     setLifetimeCounts(foundLifetimeCounts);
     setLoading(false);
   };

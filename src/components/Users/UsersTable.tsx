@@ -16,6 +16,8 @@ import {
 import { useState } from 'react';
 import { Typography, Button, Toolbar, Box } from '@material-ui/core';
 import DialogUserAdd from 'components/Users/DialogUserAdd';
+import { add } from 'store/usersSlice';
+import { useAppDispatch } from 'store/hook';
 
 const useStyles = makeStyles({
   paperContainer: {
@@ -70,21 +72,42 @@ export const UsersTable = ({ projectId }: Props) => {
   const [isDialogUserAddOpen, setIsDialogUserAddOpen] =
     useState<boolean>(false);
   const [unsaved, setUnsaved] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const doGetUsers = async () => {
+      let start = Date.now();
       const foundUsers = await getUsers(projectId);
+      let end = Date.now();
+      dispatch(
+        add({
+          actionName: `[WebClient] Get ${foundUsers.length} users`,
+          time: end - start,
+        }),
+      );
       setUsers(foundUsers);
       setLoading(false);
     };
     doGetUsers();
   }, [projectId]);
 
+  const refreshUsers = async () => {
+    let start = Date.now();
+    const foundUsers = await getUsers(projectId);
+    let end = Date.now();
+    setUsers(foundUsers);
+    dispatch(
+      add({
+        actionName: `[WebClient] Get ${foundUsers.length} users`,
+        time: end - start,
+      }),
+    );
+  };
+
   const handleClickClear = async () => {
     setLoading(true);
     await deleteUsers(projectId);
-    const foundUsers = await getUsers(projectId);
-    setUsers(foundUsers);
+    await refreshUsers();
     setLoading(false);
   };
 
@@ -94,12 +117,19 @@ export const UsersTable = ({ projectId }: Props) => {
 
   const handleClickSave = async () => {
     setLoading(true);
+    let start = Date.now();
     await postUsers(
       users.filter((x) => x.$state === 'new'),
       projectId,
     );
-    const foundUsers = await getUsers(projectId);
-    setUsers(foundUsers);
+    let end = Date.now();
+    dispatch(
+      add({
+        actionName: `[WebClient] Post new users`,
+        time: end - start,
+      }),
+    );
+    await refreshUsers();
     setUnsaved(false);
     setLoading(false);
   };
