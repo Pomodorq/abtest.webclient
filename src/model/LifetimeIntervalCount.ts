@@ -14,7 +14,7 @@ const getProfilerMsgsFromHeader = (response: Response): ProfilerMsg[] => {
   keyValuesStr.split(',').forEach((keyValue) => {
     result.push({
       actionName: keyValue.split('=')[0],
-      time: parseInt(keyValue.split('=')[1]),
+      time: parseFloat(keyValue.split('=')[1]),
     });
   });
   return result;
