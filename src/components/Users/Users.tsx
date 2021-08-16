@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import {
+  Typography,
+  Button,
+  Toolbar,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@material-ui/core';
+import DialogUserAdd from 'components/Users/DialogUserAdd';
 import {
   getUsers,
   UserData,
   deleteUsers,
   postUsers,
 } from '../../model/UsersData';
-import { useState } from 'react';
-import { Typography, Button, Toolbar, Box } from '@material-ui/core';
-import DialogUserAdd from 'components/Users/DialogUserAdd';
 import { add } from 'store/usersSlice';
 import { useAppDispatch } from 'store/hook';
 
@@ -64,7 +68,7 @@ interface Props {
   projectId: number;
 }
 
-export const UsersTable = ({ projectId }: Props) => {
+export const Users = ({ projectId }: Props) => {
   const classes = useStyles();
 
   const [users, setUsers] = useState<UserData[]>([]);
@@ -89,6 +93,7 @@ export const UsersTable = ({ projectId }: Props) => {
       setLoading(false);
     };
     doGetUsers();
+    // eslint-disable-next-line
   }, [projectId]);
 
   const refreshUsers = async () => {

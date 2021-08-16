@@ -13,7 +13,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { add } from 'store/usersSlice';
 import { useAppDispatch } from 'store/hook';
-import { ProfilerMsg } from 'model/ProfilerMsg';
 
 const useStyles = makeStyles({
   caption: {

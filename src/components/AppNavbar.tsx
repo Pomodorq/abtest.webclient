@@ -1,9 +1,9 @@
+import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Input, InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from 'theme/icons/SearchIcon';
 import ExitIcon from 'theme/icons/ExitIcon';
 import ABTestLogo from 'components/ABTestLogo';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   input: {

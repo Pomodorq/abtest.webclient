@@ -23,6 +23,7 @@ export const http = async <RESB, REQB = undefined>(
     body: config.body ? JSON.stringify(config.body) : undefined,
   });
   const response = await fetch(request);
+
   if (config.nobody) {
     return { ok: response.ok, response };
   }

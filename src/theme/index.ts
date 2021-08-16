@@ -30,19 +30,6 @@ const theme = createTheme({
     },
   },
   overrides: {
-    // Style sheet name ⚛️
-    //   MuiButton: {
-    //     // Name of the rule
-    //     text: {
-    //       // Some CSS
-    //       color: 'white',
-    //     },
-    //   },
-    // MuiPaper: {
-    //   root: {
-    //     boxShadow: 'none',
-    //   },
-    // },
     MuiButton: {
       root: {
         backgroundColor: '#4A9DFF',

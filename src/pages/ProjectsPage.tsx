@@ -1,16 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { useState } from 'react';
-import { Typography, Button, Toolbar, Box, Container } from '@material-ui/core';
-import { getProjects, ProjectData } from 'model/ProjectData';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getProjects, ProjectData } from 'model/ProjectData';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Button, Toolbar, Box, Container } from '@material-ui/core';
 
 const useStyles = makeStyles({
   paperContainer: {
@@ -26,18 +27,6 @@ const useStyles = makeStyles({
   toolbar: {
     justifyContent: 'flex-end',
     padding: 0,
-  },
-  btn: {
-    margin: '5px',
-  },
-  btnLeft: {
-    marginRight: 'auto',
-  },
-  newRow: {
-    backgroundColor: 'rgba(74, 157, 255, 0.08)',
-  },
-  info: {
-    color: 'rgba(93, 109, 151, 0.75)',
   },
   usersCaption: {
     display: 'flex',

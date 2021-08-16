@@ -1,8 +1,14 @@
-import { useState } from 'react';
-import React from 'react';
-import { Paper, Container, Toolbar, Button } from '@material-ui/core';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { InputLabel, FormHelperText, Typography } from '@material-ui/core';
+import {
+  InputLabel,
+  FormHelperText,
+  Typography,
+  Paper,
+  Container,
+  Toolbar,
+  Button,
+} from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import {
   MuiPickersUtilsProvider,
@@ -95,14 +101,13 @@ export const RollingRetention = ({ projectId }: Props) => {
   };
 
   const validateDate = () => {
-    // if (!date) {
-    //   setDateValidationMsg('Date is required');
-    //   return false;
-    // }
-    // /* eslint-disable no-self-compare */
-    // if (date.getTime() !== date.getTime()) {
-    //   return false;
-    // }
+    if (!date) {
+      return true;
+    }
+    /* eslint-disable no-self-compare */
+    if (date.getTime() !== date.getTime()) {
+      return false;
+    }
     if (dateValidationMsg != null) {
       setDateValidationMsg(null);
     }

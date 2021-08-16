@@ -1,16 +1,19 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import { Button, Toolbar, Box, Container } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
+import { postProject } from '../model/ProjectData';
 import {
   Input,
   InputLabel,
   FormHelperText,
   Typography,
+  Button,
+  Toolbar,
+  Box,
+  Container,
+  Paper,
 } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import { postProject } from '../model/ProjectData';
+import { makeStyles } from '@material-ui/core/styles';
 
 const InputSeparate = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -88,6 +91,7 @@ export const ProjectInsertPage = () => {
 
   const handleClickSave = async () => {
     if (!validateProjectName) return;
+    setLoading(true);
     let createdProject = await postProject({
       $state: 'new',
       name: projectName!,
@@ -97,6 +101,7 @@ export const ProjectInsertPage = () => {
       return;
     }
     navigate(`/app/projects/${createdProject.projectId!}/users`);
+    setLoading(false);
   };
 
   const handleProjectNameChange = (event: any) => {
@@ -140,7 +145,9 @@ export const ProjectInsertPage = () => {
           {projectNameValidationMsg}
         </FormHelperText>
         <Toolbar className={classes.toolbar}>
-          <Button onClick={handleClickSave}>Save</Button>
+          <Button onClick={handleClickSave} disabled={loading}>
+            Save
+          </Button>
         </Toolbar>
       </Paper>
     </Container>

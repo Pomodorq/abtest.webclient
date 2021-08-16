@@ -1,11 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { useParams, useNavigate } from 'react-router-dom';
-import { UsersTable } from 'components/Users/UsersTable';
-import { Box, Container, Grid } from '@material-ui/core';
+import { Users } from 'components/Users/Users';
 import { UsersLifetime } from 'components/Users/UsersLifetime';
 import { RollingRetention } from 'components/Users/RollingRetention';
 import { Profiler } from 'components/Users/Profiler';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box, Container, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
   container: {
@@ -28,7 +28,7 @@ export const UsersMetricsPage = () => {
       <Container maxWidth={'xl'} className={classes.container}>
         <Grid container spacing={3} className={classes.justifyContainer}>
           <Grid item xl={4} lg={4} md={12} xs={12}>
-            <UsersTable projectId={parseInt(projectId)} />
+            <Users projectId={parseInt(projectId)} />
           </Grid>
           <Grid item xl={8} lg={8} md={12} xs={12}>
             <UsersLifetime projectId={parseInt(projectId)} />
