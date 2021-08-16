@@ -1,10 +1,5 @@
 import { http } from '../api/http';
-
-export interface ProjectData {
-  projectId: number;
-  name: string;
-  projectUsers?: UserDataServer[] | null;
-}
+import { ProjectData } from 'model/ProjectData';
 
 export interface UserDataServer {
   id: number;
