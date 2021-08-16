@@ -4,6 +4,7 @@ import { NotFoundPage } from 'pages/NotFoundPage';
 import { Navigate } from 'react-router-dom';
 import { UsersMetricsPage } from 'pages/UsersMetricsPage';
 import { ProjectsPage } from 'pages/ProjectsPage';
+import { ProjectInsertPage } from 'pages/ProjectInsertPage';
 
 const routes = [
   {
@@ -11,6 +12,7 @@ const routes = [
     element: <AppLayout />,
     children: [
       { path: 'projects', element: <ProjectsPage /> },
+      { path: 'projects/new', element: <ProjectInsertPage /> },
       {
         path: 'projects/:projectId/users',
         element: <UsersMetricsPage />,

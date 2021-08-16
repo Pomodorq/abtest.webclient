@@ -31,7 +31,7 @@ export const AppNavbar = () => {
     <AppBar position="static">
       <Toolbar>
         <div className={classes.logo}>
-          <Link className={classes.link} to={`/`}>
+          <Link className={classes.link} to={`/app/projects`}>
             <ABTestLogo />
           </Link>
         </div>
