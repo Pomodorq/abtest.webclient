@@ -143,7 +143,7 @@ export const RollingRetention = ({ projectId }: Props) => {
             <Typography className={classes.retentionResult}>
               <React.Fragment>
                 {retention}
-                {retention ? '%' : null}
+                {retention || retention === 0 ? '%' : null}
               </React.Fragment>
             </Typography>
           </Container>

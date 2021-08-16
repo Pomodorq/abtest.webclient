@@ -60,7 +60,7 @@ export const getRollingRetention = async (
   const result = await http<number>({
     path,
   });
-  if (result.ok && result.body) {
+  if (result.ok && (result.body || result.body === 0)) {
     return result.body;
   } else {
     return null;
