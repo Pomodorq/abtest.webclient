@@ -1,27 +1,13 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  InputLabel,
-  FormHelperText,
   Typography,
   Paper,
   Container,
   Toolbar,
   Button,
 } from '@material-ui/core';
-import { styled } from '@material-ui/core/styles';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { getRollingRetention } from 'model/LifetimeIntervalCount';
-
-const InputSeparate = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  maxWidth: 400,
-}));
 
 const useStyles = makeStyles({
   caption: {
@@ -58,7 +44,7 @@ const useStyles = makeStyles({
   },
   retentionResult: {
     color: 'rgba(238, 123, 48, 0.6)',
-    fontSize: 100,
+    fontSize: 80,
   },
 });
 
@@ -68,51 +54,50 @@ interface Props {
 
 export const RollingRetention = ({ projectId }: Props) => {
   const classes = useStyles();
-  const [date, setDate] = useState<Date | null>(null);
-  const [dateValidationMsg, setDateValidationMsg] = useState<string | null>(
-    null,
-  );
+  // const [date, setDate] = useState<Date | null>(null);
+  // const [dateValidationMsg, setDateValidationMsg] = useState<string | null>(
+  //   null,
+  // );
   const [loading, setLoading] = useState<boolean>(false);
   const [retention, setRetention] = useState<number | null>(null);
 
   const handleClickCalculate = async () => {
-    if (!validateDate()) return;
+    //if (!validateDate()) return;
     setLoading(true);
-    let ret = await getRollingRetention(projectId, 7, date);
-    setRetention(ret);
-    console.log(retention);
+    let ret = await getRollingRetention(projectId, 7);
+    if (ret !== null) setRetention(ret);
     setLoading(false);
   };
 
-  const makeDate = (value: string) => {
-    let a = value.split('.');
-    let day = a[0];
-    let month = a[1];
-    let year = a[2];
-    return new Date(`${year}-${month}-${day}T00:00:00-00:00`);
-  };
+  // const makeDate = (value: string) => {
+  //   let a = value.split('.');
+  //   let day = a[0];
+  //   let month = a[1];
+  //   let year = a[2];
+  //   return new Date(`${year}-${month}-${day}T00:00:00-00:00`);
+  // };
 
-  const handleDateChange = (event: any, value: string | null | undefined) => {
-    if (!value) {
-      setDate(null);
-      return;
-    }
-    setDate(makeDate(value));
-  };
+  // const handleDateChange = (event: any, value: string | null | undefined) => {
+  //   if (!value) {
+  //     setDate(null);
+  //     return;
+  //   }
+  //   setDate(makeDate(value));
+  // };
 
-  const validateDate = () => {
-    if (!date) {
-      return true;
-    }
-    /* eslint-disable no-self-compare */
-    if (date.getTime() !== date.getTime()) {
-      return false;
-    }
-    if (dateValidationMsg != null) {
-      setDateValidationMsg(null);
-    }
-    return true;
-  };
+  // const validateDate = () => {
+  //   if (!date) {
+  //     return true;
+  //   }
+  //   /* eslint-disable no-self-compare */
+  //   if (date.getTime() !== date.getTime()) {
+  //     return false;
+  //   }
+  //   if (dateValidationMsg != null) {
+  //     setDateValidationMsg(null);
+  //   }
+  //   return true;
+  // };
 
   return (
     <Paper elevation={0}>
@@ -120,8 +105,8 @@ export const RollingRetention = ({ projectId }: Props) => {
         Rolling Retention 7 day
       </Typography>
       <Container className={classes.container}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <InputSeparate>
+        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}> */}
+        {/* <InputSeparate>
             <InputLabel
               className={classes.labelCenter}
               htmlFor="DateRegistration"
@@ -143,16 +128,16 @@ export const RollingRetention = ({ projectId }: Props) => {
           </InputSeparate>
           <FormHelperText id="my-helper-text" className={classes.helper}>
             {dateValidationMsg}
-          </FormHelperText>
-          <Container>
-            <Typography className={classes.retentionResult}>
-              <React.Fragment>
-                {retention}
-                {retention || retention === 0 ? '%' : null}
-              </React.Fragment>
-            </Typography>
-          </Container>
-        </MuiPickersUtilsProvider>
+          </FormHelperText> */}
+        <Container>
+          <Typography className={classes.retentionResult}>
+            <React.Fragment>
+              {retention}
+              {retention || retention === 0 ? '%' : null}
+            </React.Fragment>
+          </Typography>
+        </Container>
+        {/* </MuiPickersUtilsProvider> */}
       </Container>
       <Toolbar className={classes.toolbar}>
         <Button onClick={handleClickCalculate} disabled={loading}>
