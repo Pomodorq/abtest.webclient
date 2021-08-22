@@ -4,12 +4,19 @@ export interface HttpRequest<REQB> {
   path: string;
   method?: string;
   body?: REQB;
-  nobody?: boolean;
 }
 export interface HttpResponse<RESB> {
   ok: boolean;
   body?: RESB;
+  problem?: ProblemDetails;
   response: Response;
+}
+
+export interface ProblemDetails {
+  type?: string;
+  title: string;
+  status: number;
+  detail?: string;
 }
 
 export const http = async <RESB, REQB = undefined>(
@@ -22,27 +29,27 @@ export const http = async <RESB, REQB = undefined>(
     },
     body: config.body ? JSON.stringify(config.body) : undefined,
   });
+
   const response = await fetch(request);
 
-  if (config.nobody) {
+  const contentType = response.headers.get('content-type');
+
+  let body;
+  if (
+    contentType &&
+    (contentType.indexOf('application/json') !== -1 ||
+      contentType.indexOf('application/problem+json') !== -1)
+  ) {
+    body = await response.json();
+  }
+
+  if (!body) {
     return { ok: response.ok, response };
   }
+
   if (response.ok) {
-    const body = await response.json();
     return { ok: response.ok, body, response };
   } else {
-    logError(request, response);
-    return { ok: response.ok, response };
+    return { ok: response.ok, problem: body, response };
   }
-};
-
-const logError = async (request: Request, response: Response) => {
-  const contentType = response.headers.get('content-type');
-  let body: any;
-  if (contentType && contentType.indexOf('application/json') !== -1) {
-    body = await response.json();
-  } else {
-    body = await response.text();
-  }
-  console.error(`Error requesting ${request.method} ${request.url}`, body);
 };

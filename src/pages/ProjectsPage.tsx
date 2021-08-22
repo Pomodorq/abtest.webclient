@@ -84,7 +84,10 @@ export const ProjectsPage = () => {
             {loading ? (
               <TableBody>
                 <TableRow>
-                  <Typography>Loading...</Typography>
+                  <TableCell>
+                    <Typography>Loading...</Typography>
+                  </TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableBody>
             ) : (

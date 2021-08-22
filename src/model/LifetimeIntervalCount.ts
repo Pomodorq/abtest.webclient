@@ -35,34 +35,3 @@ export const getLifetimeCountsByIntervals = async (
     return [];
   }
 };
-
-export const getLifetimeCountsByRange = async (
-  projectId: number,
-): Promise<LifetimeIntervalCount[]> => {
-  const result = await http<LifetimeIntervalCount[]>({
-    path: `/projects/${projectId}/users/distribution/range`,
-  });
-  if (result.ok && result.body) {
-    return result.body;
-  } else {
-    return [];
-  }
-};
-
-export const getRollingRetention = async (
-  projectId: number,
-  days: number,
-  date: Date | null = null,
-): Promise<number | null> => {
-  let path =
-    `/projects/${projectId}/users/rolling-retention?days=${days}` +
-    (date ? `&date=${date?.toISOString()}` : '');
-  const result = await http<number>({
-    path,
-  });
-  if (result.ok && (result.body || result.body === 0)) {
-    return result.body;
-  } else {
-    return null;
-  }
-};

@@ -58,11 +58,10 @@ export const postUsers = async (
   users: UserData[],
   projectId: number,
 ): Promise<boolean> => {
-  const result = await http<boolean, UserData[]>({
+  const result = await http<undefined, UserData[]>({
     path: `/projects/${projectId}/users/many`,
     method: 'post',
     body: users,
-    nobody: true,
   });
   return result.ok;
 };
@@ -71,7 +70,6 @@ export const deleteUsers = async (projectId: number): Promise<boolean> => {
   const result = await http({
     path: `/projects/${projectId}/users`,
     method: 'delete',
-    nobody: true,
   });
   return result.ok;
 };
